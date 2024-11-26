@@ -24,22 +24,3 @@ for chunk in completion:
     # 'delta.content'       the content of the response.
     # 'end=""'              to print the response in one line
 
-
-
-# NON-STREAMING EXAMPLE (with the raw response = response returned as a whole):
-
-response = client.chat.completions.with_raw_response.create(
-    # messages=[{
-    #     "role": "user",
-    #     "content": "Say this is a test",
-    # }],
-    messages = [
-        {"role": "system", "content": "You are a helpful assistant."},
-        {"role": "user", "content": "Write a haiku about recursion in programming."}
-    ],
-    model="gpt-4o-mini",
-)
-
-# get the object that `chat.completions.create()` would have returned
-completion = response.parse()
-print(completion)
