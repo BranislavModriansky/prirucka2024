@@ -1,14 +1,15 @@
-import whisper
+from openai import OpenAI
 
-# Load the Whisper model (use "base" for a smaller model; "medium" or "large" for better accuracy)
-model = whisper.load_model("base")
+client = OpenAI()
 
-# Path to the audio file
-audio_path = "output_audio_60s.wav"
+audio_file = open(r"C:\Users\modri\Downloads\OSR_us_000_0010_8k.wav", "rb")
 
-# Transcribe the audio
-result = model.transcribe(audio_path, language="cs")  # 'cs' is the code for Czech
+transcription = client.audio.transcriptions.create(
+  model="whisper-1", 
+  file=audio_file, 
+  response_format="text"
+)
 
-# Print the transcription
-with open("transcription.txt", "w", encoding="utf-8") as f:
-    f.write(result["text"])
+# Write the transcription 'transcription.txt' into a file
+with open("transcription_01.txt", "w", encoding="utf-8") as f:
+    f.write(transcription)
